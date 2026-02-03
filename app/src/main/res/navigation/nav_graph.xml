@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/authPlaceholderFragment">
+
+    <fragment
+        android:id="@+id/animalDetailFragment"
+        android:name="com.mabf.pawsy.ui.animals.AnimalDetailFragment"
+        android:label="AnimalDetailFragment" />
+    <fragment
+        android:id="@+id/animalListFragment"
+        android:name="com.mabf.pawsy.ui.animals.AnimalListFragment"
+        android:label="AnimalListFragment" >
+        <action
+            android:id="@+id/action_animalListFragment_to_animalDetailFragment"
+            app:destination="@id/animalDetailFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/authPlaceholderFragment"
+        android:name="com.mabf.pawsy.ui.auth.AuthPlaceholderFragment"
+        android:label="AuthPlaceholderFragment" >
+        <action
+            android:id="@+id/action_authPlaceholderFragment_to_animalListFragment"
+            app:destination="@id/animalListFragment" />
+    </fragment>
+
+</navigation>

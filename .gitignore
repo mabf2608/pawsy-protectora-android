@@ -1,0 +1,81 @@
+# =========================
+# Android / Gradle
+# =========================
+.gradle/
+build/
+**/build/
+
+# Local Gradle config
+local.properties
+
+# =========================
+# Android Studio
+# =========================
+.idea/
+!.idea/codeStyles/
+!.idea/runConfigurations/
+.idea/caches/
+.idea/libraries/
+.idea/modules.xml
+.idea/workspace.xml
+.idea/navEditor.xml
+.idea/assetWizardSettings.xml
+
+# Android Studio captures
+captures/
+
+# =========================
+# Logs
+# =========================
+*.log
+
+# =========================
+# OS generated files
+# =========================
+.DS_Store
+Thumbs.db
+
+# =========================
+# Keystore files
+# =========================
+*.jks
+*.keystore
+
+# =========================
+# APK / AAB
+# =========================
+*.apk
+*.aab
+
+# =========================
+# Kotlin / Java
+# =========================
+*.class
+
+# =========================
+# External native build
+# =========================
+.externalNativeBuild/
+.cxx/
+
+# =========================
+# Lint / Reports
+# =========================
+lint/
+lint-results*.html
+lint-results*.xml
+
+# =========================
+# Firebase / Google Services (por si se añade)
+# =========================
+google-services.json
+
+# =========================
+# Room (generated schemas if not tracked)
+# =========================
+schemas/
+
+# =========================
+# Misc
+# =========================
+*.iml
