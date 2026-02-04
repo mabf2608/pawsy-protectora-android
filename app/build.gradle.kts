@@ -1,12 +1,14 @@
 plugins {
     alias(libs.plugins.android.application)
+    alias(libs.plugins.kotlin.android)
+
+    id("kotlin-kapt")
+    id("com.google.dagger.hilt.android")
 }
 
 android {
     namespace = "com.mabf.pawsy"
-    compileSdk {
-        version = release(36)
-    }
+    compileSdk  = 36
 
     defaultConfig {
         applicationId = "com.mabf.pawsy"
@@ -31,6 +33,13 @@ android {
         sourceCompatibility = JavaVersion.VERSION_11
         targetCompatibility = JavaVersion.VERSION_11
     }
+    kotlinOptions {
+        jvmTarget = "11"
+    }
+}
+
+kapt {
+    correctErrorTypes = true
 }
 
 dependencies {
@@ -44,4 +53,8 @@ dependencies {
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
+
+    //Dependencias Hilt
+    implementation(libs.hilt.android)
+    kapt(libs.hilt.compiler)
 }
