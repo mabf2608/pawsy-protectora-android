@@ -13,7 +13,7 @@ import android.util.Log
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.lifecycle.Lifecycle
-import com.mabf.pawsy.ui.UiState
+import com.mabf.pawsy.ui.common.UiState
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint

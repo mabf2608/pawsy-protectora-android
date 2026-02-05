@@ -3,8 +3,8 @@ package com.mabf.pawsy.ui.animals
 import androidx.lifecycle.viewModelScope
 import com.mabf.pawsy.domain.model.Animal
 import com.mabf.pawsy.domain.repository.AnimalRepository
-import com.mabf.pawsy.ui.BaseViewModel
-import com.mabf.pawsy.ui.UiState
+import com.mabf.pawsy.ui.common.BaseViewModel
+import com.mabf.pawsy.ui.common.UiState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 import kotlinx.coroutines.flow.MutableStateFlow

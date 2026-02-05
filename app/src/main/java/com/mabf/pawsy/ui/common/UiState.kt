@@ -1,4 +1,4 @@
-package com.mabf.pawsy.ui
+package com.mabf.pawsy.ui.common
 
 sealed class UiState<out T> {
     data object Loading : UiState<Nothing>()

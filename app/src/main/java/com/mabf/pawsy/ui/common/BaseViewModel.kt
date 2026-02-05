@@ -1,4 +1,4 @@
-package com.mabf.pawsy.ui
+package com.mabf.pawsy.ui.common
 
 import androidx.lifecycle.ViewModel
 
