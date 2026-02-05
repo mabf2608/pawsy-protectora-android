@@ -1,5 +1,6 @@
 package com.mabf.pawsy.domain.repository
+import com.mabf.pawsy.domain.model.Animal
 
 interface AnimalRepository {
-    fun getAnimals(): List<String>
+    suspend fun getAnimals(): List<Animal>
 }

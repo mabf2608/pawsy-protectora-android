@@ -10,6 +10,11 @@ import androidx.navigation.fragment.findNavController
 import dagger.hilt.android.AndroidEntryPoint
 import androidx.lifecycle.ViewModelProvider
 import android.util.Log
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
+import androidx.lifecycle.Lifecycle
+import com.mabf.pawsy.ui.UiState
+import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class AnimalListFragment : Fragment() {
@@ -26,11 +31,36 @@ class AnimalListFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+
         super.onViewCreated(view, savedInstanceState)
 
         viewModel = ViewModelProvider(this)[AnimalListViewModel::class.java]
 
-        val animals = viewModel.loadAnimals()
-        Log.d("AnimalListFragment", "Animals loaded: ${animals.size}")
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.uiState.collect { state ->
+                    when (state) {
+                        is UiState.Loading -> {
+                            Log.d("AnimalListFragment", "Loading animals...")
+                        }
+
+                        is UiState.Success -> {
+                            Log.d(
+                                "AnimalListFragment",
+                                "Animals loaded: ${state.data.size}"
+                            )
+                        }
+
+                        is UiState.Error -> {
+                            Log.e(
+                                "AnimalListFragment",
+                                "Error loading animals: ${state.message}",
+                                state.cause
+                            )
+                        }
+                    }
+                }
+            }
+        }
     }
 }
