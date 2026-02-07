@@ -9,12 +9,12 @@ import com.mabf.pawsy.R
 import androidx.navigation.fragment.findNavController
 import dagger.hilt.android.AndroidEntryPoint
 import androidx.lifecycle.ViewModelProvider
-import android.util.Log
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.lifecycle.Lifecycle
 import com.mabf.pawsy.ui.common.UiState
 import kotlinx.coroutines.launch
+import android.widget.TextView
 
 @AndroidEntryPoint
 class AnimalListFragment : Fragment() {
@@ -39,24 +39,20 @@ class AnimalListFragment : Fragment() {
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 viewModel.uiState.collect { state ->
+                    val tvAnimals = view.findViewById<TextView>(R.id.tvAnimals)
+
                     when (state) {
                         is UiState.Loading -> {
-                            Log.d("AnimalListFragment", "Loading animals...")
+                            tvAnimals.text = "Cargando animales..."
                         }
-
                         is UiState.Success -> {
-                            Log.d(
-                                "AnimalListFragment",
-                                "Animals loaded: ${state.data.size}"
-                            )
+                            val text = state.data.joinToString(separator = "\n\n") { animal ->
+                                "${animal.name} (${animal.species})\nEdad aprox: ${animal.estimatedAge}\nEstado: ${animal.adoptionStatus}\n${animal.description}"
+                            }
+                            tvAnimals.text = text
                         }
-
                         is UiState.Error -> {
-                            Log.e(
-                                "AnimalListFragment",
-                                "Error loading animals: ${state.message}",
-                                state.cause
-                            )
+                            tvAnimals.text = "Error: ${state.message}"
                         }
                     }
                 }

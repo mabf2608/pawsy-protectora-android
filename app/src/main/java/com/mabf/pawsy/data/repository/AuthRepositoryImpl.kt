@@ -4,8 +4,16 @@ import com.mabf.pawsy.domain.repository.AuthRepository
 import javax.inject.Inject
 
 class AuthRepositoryImpl @Inject constructor() : AuthRepository {
-    override fun isLoggedIn(): Boolean {
-        // Día 2: esqueleto. Luego vendrá DataStore/Firebase/etc.
-        return false
+    // Día 4: estado en memoria (no persiste al cerrar la app)
+    private var loggedIn: Boolean = false
+
+    override fun isLoggedIn(): Boolean = loggedIn
+
+    override fun logIn() {
+        loggedIn = true
+    }
+
+    override fun logOut() {
+        loggedIn = false
     }
 }
