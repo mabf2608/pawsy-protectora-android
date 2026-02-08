@@ -14,7 +14,7 @@ import androidx.lifecycle.repeatOnLifecycle
 import androidx.lifecycle.Lifecycle
 import com.mabf.pawsy.ui.common.UiState
 import kotlinx.coroutines.launch
-import android.widget.TextView
+import androidx.core.os.bundleOf
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.mabf.pawsy.databinding.FragmentAnimalListBinding
 
@@ -40,8 +40,10 @@ class AnimalListFragment : Fragment() {
         viewModel = ViewModelProvider(this)[AnimalListViewModel::class.java]
 
         adapter = AnimalAdapter { animal ->
-            // (Día 6 veremos si pasamos datos por SafeArgs)
-            findNavController().navigate(R.id.action_animalListFragment_to_animalDetailFragment)
+            findNavController().navigate(
+                R.id.action_animalListFragment_to_animalDetailFragment,
+                bundleOf("animalId" to animal.id)
+            )
         }
 
         binding.rvAnimals.layoutManager = LinearLayoutManager(requireContext())

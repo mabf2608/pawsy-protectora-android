@@ -7,7 +7,11 @@
     <fragment
         android:id="@+id/animalDetailFragment"
         android:name="com.mabf.pawsy.ui.animals.AnimalDetailFragment"
-        android:label="AnimalDetailFragment" />
+        android:label="AnimalDetailFragment">
+        <argument
+            android:name="animalId"
+            app:argType="string" />
+    </fragment>
     <fragment
         android:id="@+id/animalListFragment"
         android:name="com.mabf.pawsy.ui.animals.AnimalListFragment"
