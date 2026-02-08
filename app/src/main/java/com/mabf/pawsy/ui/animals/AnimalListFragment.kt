@@ -15,19 +15,22 @@ import androidx.lifecycle.Lifecycle
 import com.mabf.pawsy.ui.common.UiState
 import kotlinx.coroutines.launch
 import android.widget.TextView
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.mabf.pawsy.databinding.FragmentAnimalListBinding
 
 @AndroidEntryPoint
 class AnimalListFragment : Fragment() {
 
     private lateinit var viewModel: AnimalListViewModel
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        val view = inflater.inflate(R.layout.fragment_animal_list, container, false)
+    private var _binding: FragmentAnimalListBinding? = null
+    private val binding get() = _binding!!
 
-        view.setOnClickListener {
-            findNavController().navigate(R.id.action_animalListFragment_to_animalDetailFragment)
-        }
-        return view
+    private lateinit var adapter: AnimalAdapter
+
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
+        _binding = FragmentAnimalListBinding.inflate(inflater, container, false)
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -36,27 +39,42 @@ class AnimalListFragment : Fragment() {
 
         viewModel = ViewModelProvider(this)[AnimalListViewModel::class.java]
 
+        adapter = AnimalAdapter { animal ->
+            // (Día 6 veremos si pasamos datos por SafeArgs)
+            findNavController().navigate(R.id.action_animalListFragment_to_animalDetailFragment)
+        }
+
+        binding.rvAnimals.layoutManager = LinearLayoutManager(requireContext())
+        binding.rvAnimals.adapter = adapter
+
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 viewModel.uiState.collect { state ->
-                    val tvAnimals = view.findViewById<TextView>(R.id.tvAnimals)
 
                     when (state) {
                         is UiState.Loading -> {
-                            tvAnimals.text = "Cargando animales..."
+                            binding.tvStatus.visibility = View.VISIBLE
+                            binding.tvStatus.text = "Cargando animales..."
+                            adapter.submitList(emptyList())
                         }
                         is UiState.Success -> {
-                            val text = state.data.joinToString(separator = "\n\n") { animal ->
-                                "${animal.name} (${animal.species})\nEdad aprox: ${animal.estimatedAge}\nEstado: ${animal.adoptionStatus}\n${animal.description}"
-                            }
-                            tvAnimals.text = text
+                            binding.tvStatus.visibility = View.GONE
+                            adapter.submitList(state.data)
                         }
                         is UiState.Error -> {
-                            tvAnimals.text = "Error: ${state.message}"
+                            binding.tvStatus.visibility = View.VISIBLE
+                            binding.tvStatus.text = "Error: ${state.message}"
+                            adapter.submitList(emptyList())
                         }
                     }
                 }
             }
         }
     }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null // Evita leaks del binding
+    }
+
 }

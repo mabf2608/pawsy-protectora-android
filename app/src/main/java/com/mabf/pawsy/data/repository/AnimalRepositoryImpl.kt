@@ -42,7 +42,7 @@ class AnimalRepositoryImpl @Inject constructor() : AnimalRepository {
                 name = "Nube",
                 estimatedAge = 1,
                 species = AnimalSpecies.RABBIT,
-                adoptionStatus = AdoptionStatus.AVAILABLE,
+                adoptionStatus = AdoptionStatus.ADOPTED,
                 description = "Conejo joven, necesita espacio y enriquecimiento.",
                 photoUrl = "https://res.cloudinary.com/dldw1cucs/image/upload/v1770390680/thumbnail_Logo_Pawsy_b3a80ac212.png"
             )

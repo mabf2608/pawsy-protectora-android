@@ -29,6 +29,11 @@ android {
             )
         }
     }
+
+    buildFeatures {
+        viewBinding = true
+    }
+
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_11
         targetCompatibility = JavaVersion.VERSION_11
@@ -74,4 +79,7 @@ dependencies {
 
     // DataStore (Preferences)
     implementation(libs.datastore.preferences)
+
+    // RecyclerView
+    implementation(libs.androidx.recyclerview)
 }
